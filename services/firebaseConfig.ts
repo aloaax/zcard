@@ -16,7 +16,7 @@ const getEnv = (key: string) => {
 };
 
 // --- إعدادات فايربيس ---
-// هام: استبدل القيم أدناه بمعلومات مشروعك الخاص من Firebase Console
+// هام: استبل القيم أدناه بمعلومات مشروعك الخاص من Firebase Console
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 // Demo/fallback config (used only if no env vars provided)
