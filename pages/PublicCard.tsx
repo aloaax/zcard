@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Phone, Mail, Share2, Download, MapPin, Globe, Star, ChevronDown, Languages, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Star, ChevronDown, Languages } from 'lucide-react';
 import { cardService } from '../services/cardService';
 import { BusinessCardData, Project } from '../types';
 import { DEFAULT_CARD } from '../utils/defaultData';
@@ -17,16 +17,10 @@ const TRANSLATIONS = {
     email: 'بريد',
     save: 'حفظ',
     share: 'مشاركة',
-    infoTab: 'المعلومات',
-    projectsTab: 'المشاريع',
-
-    companyInfo: 'بيانات الشركة',
     poweredBy: 'Powered by Awj Tech',
-    adminPanel: '[ لوحة التحكم ]',
     projectsGallery: 'معرض المشاريع',
     viewDetails: 'عرض التفاصيل',
     exploreProjects: 'تعرف على مشاريعنا',
-    exploreSub: 'استكشف معرض أعمال أوج تك',
     shareSuccess: 'تم نسخ الرابط!',
     loading: 'جاري التحميل...',
   },
@@ -36,16 +30,10 @@ const TRANSLATIONS = {
     email: 'Email',
     save: 'Save',
     share: 'Share',
-    infoTab: 'Info',
-    projectsTab: 'Projects',
-
-    companyInfo: 'Company Info',
     poweredBy: 'Powered by Awj Tech',
-    adminPanel: '[ Admin Panel ]',
     projectsGallery: 'Projects Gallery',
     viewDetails: 'View Details',
     exploreProjects: 'Explore Our Projects',
-    exploreSub: 'Discover Awj Tech portfolio',
     shareSuccess: 'Link copied!',
     loading: 'Loading...',
   }
@@ -55,7 +43,7 @@ const PublicCard: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [data, setData] = useState<BusinessCardData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'info' | 'projects'>('info');
+  const [showProjects, setShowProjects] = useState(false);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -170,66 +158,48 @@ const PublicCard: React.FC = () => {
         {/* Action Buttons Grid */}
         <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
           <ActionButton
-            icon={<Phone size={20} />}
+            icon={<img src="/images/call.png" alt="Call" className="w-full h-full object-contain" />}
             label={t.call}
             onClick={() => window.open(`tel:${data.contact.personalPhone}`)}
-            color="bg-gray-100 text-gray-700 hover:bg-gray-200"
+            color="bg-transparent"
           />
           <ActionButton
-            icon={<span className="font-bold text-xl">WA</span>}
+            icon={<img src="/images/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />}
             label={t.whatsapp}
             onClick={() => setShowWhatsAppModal(true)}
-            color="bg-green-50 text-green-600 hover:bg-green-100"
+            color="bg-transparent"
           />
           <ActionButton
-            icon={<Mail size={20} />}
+            icon={<img src="/images/email.png" alt="Email" className="w-full h-full object-contain" />}
             label={t.email}
             onClick={() => window.open(`mailto:${data.contact.email}`)}
-            color="bg-red-50 text-red-600 hover:bg-red-100"
+            color="bg-transparent"
           />
           <ActionButton
-            icon={<Download size={20} />}
+            icon={<img src="/images/save.png" alt="Save" className="w-full h-full object-contain" />}
             label={t.save}
             onClick={() => downloadVCard(data)}
-            color="bg-blue-50 text-blue-600 hover:bg-blue-100"
+            color="bg-transparent"
           />
           <ActionButton
-            icon={<Share2 size={20} />}
+            icon={<img src="/images/share.png" alt="Share" className="w-full h-full object-contain" />}
             label={t.share}
             onClick={handleShare}
-            color="bg-purple-50 text-purple-600 hover:bg-purple-100"
+            color="bg-transparent"
           />
         </div>
 
-        {/* Navigation Tabs - Only show if there are projects */}
-        {hasProjects && (
-          <div className="flex border-b border-gray-100 mb-6 sticky top-0 bg-white/95 backdrop-blur z-30">
-            <button
-              className={`flex-1 py-4 font-bold text-center transition-colors relative ${activeTab === 'info' ? 'text-blue-800' : 'text-gray-400'}`}
-              onClick={() => setActiveTab('info')}
-            >
-              {t.infoTab}
-              {activeTab === 'info' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-800 rounded-t-full mx-8"></div>}
-            </button>
-            <button
-              className={`flex-1 py-4 font-bold text-center transition-colors relative ${activeTab === 'projects' ? 'text-blue-800' : 'text-gray-400'}`}
-              onClick={() => setActiveTab('projects')}
-            >
-              {t.projectsTab}
-              {activeTab === 'projects' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-800 rounded-t-full mx-8"></div>}
-            </button>
-          </div>
-        )}
+
 
         {/* Content Area */}
         <div className="px-6 pb-20 min-h-[300px]">
-          {activeTab === 'info' ? (
-            <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-6 animate-fadeIn">
 
-              {/* Projects CTA - Only if has projects */}
-              {hasProjects && (
+            {/* Projects CTA - Only if has projects */}
+            {hasProjects && (
+              <div className="space-y-4">
                 <button
-                  onClick={() => setActiveTab('projects')}
+                  onClick={() => setShowProjects(!showProjects)}
                   className="w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white p-5 rounded-2xl shadow-lg shadow-blue-200 transform transition hover:scale-[1.02] flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
@@ -238,109 +208,45 @@ const PublicCard: React.FC = () => {
                     </div>
                     <div className={isRTL ? "text-right" : "text-left"}>
                       <div className="font-bold text-lg">{t.exploreProjects}</div>
-                      <div className="text-blue-200 text-xs">{t.exploreSub}</div>
                     </div>
                   </div>
                   <div className="bg-white text-blue-900 rounded-full p-1">
-                    <ChevronDown className={`transform ${isRTL ? 'rotate-90' : '-rotate-90'}`} size={20} />
+                    <ChevronDown className={`transform transition-transform duration-300 ${showProjects ? 'rotate-180' : ''}`} size={20} />
                   </div>
                 </button>
-              )}
 
-
-              {/* Company Info */}
-              <div className="bg-gray-900 text-gray-300 rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                <h3 className="text-white font-bold mb-4">{t.companyInfo}</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-3">
-                    <Phone size={16} />
-                    <span dir="ltr">{data.contact.companyPhone}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <MapPin size={16} />
-                    <span>{getContent(data.contact.location, data.contact.locationEn)}</span>
-                  </div>
-                  <a href={data.social.website} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-blue-400 hover:text-blue-300">
-                    <Globe size={16} />
-                    <span className="truncate" dir="ltr">{data.social.website}</span>
-                  </a>
-                </div>
-
-                {/* Social Media Links - Linked to Admin Dashboard */}
-                {(data.social.linkedin || data.social.twitter || data.social.instagram) && (
-                  <div className="mt-6 pt-6 border-t border-gray-800">
-                    <div className="flex justify-center gap-4">
-                      {data.social.linkedin && (
-                        <a
-                          href={data.social.linkedin}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-[#0077b5] hover:text-white transition-all transform hover:-translate-y-1"
-                          aria-label="LinkedIn"
-                        >
-                          <Linkedin size={20} />
-                        </a>
-                      )}
-                      {data.social.twitter && (
-                        <a
-                          href={data.social.twitter}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-black hover:text-white transition-all transform hover:-translate-y-1"
-                          aria-label="Twitter"
-                        >
-                          <Twitter size={20} />
-                        </a>
-                      )}
-                      {data.social.instagram && (
-                        <a
-                          href={data.social.instagram}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-gradient-to-tr from-[#fd5949] to-[#d6249f] hover:text-white transition-all transform hover:-translate-y-1"
-                          aria-label="Instagram"
-                        >
-                          <Instagram size={20} />
-                        </a>
-                      )}
-                    </div>
+                {/* Projects List (Accordion Content) */}
+                {showProjects && (
+                  <div className="grid grid-cols-1 gap-6 animate-fadeIn">
+                    {data.projects.map((project) => (
+                      <div
+                        key={project.id}
+                        onClick={() => setSelectedProject(project)}
+                        className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 cursor-pointer group hover:shadow-xl transition-all"
+                      >
+                        <div className="h-48 overflow-hidden relative">
+                          <img
+                            src={project.thumbnailUrl}
+                            alt={project.title}
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-medium border border-white/30 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+                              {t.viewDetails}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-bold text-gray-900 text-lg mb-1">{getContent(project.title, project.titleEn)}</h3>
+                          <p className="text-gray-500 text-sm line-clamp-2">{getContent(project.description, project.descriptionEn)}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
-
-            </div>
-          ) : (
-            <div className="animate-fadeIn">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">{t.projectsGallery}</h2>
-              <div className="grid grid-cols-1 gap-6">
-                {data.projects.map((project) => (
-                  <div
-                    key={project.id}
-                    onClick={() => setSelectedProject(project)}
-                    className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 cursor-pointer group hover:shadow-xl transition-all"
-                  >
-                    <div className="h-48 overflow-hidden relative">
-                      <img
-                        src={project.thumbnailUrl}
-                        alt={project.title}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-medium border border-white/30 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
-                          {t.viewDetails}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 text-lg mb-1">{getContent(project.title, project.titleEn)}</h3>
-                      <p className="text-gray-500 text-sm line-clamp-2">{getContent(project.description, project.descriptionEn)}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Footer Branding */}
