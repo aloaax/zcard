@@ -72,10 +72,7 @@ const ProjectDetailModal: React.FC<Props> = ({ project, onClose, lang = 'ar' }) 
           </div>
 
           <div>
-            <h3 className="flex items-center gap-2 font-bold text-gray-800 mb-4 text-lg">
-              <ImageIcon size={20} className="text-purple-600" />
-              {lang === 'ar' ? 'معرض الصور' : 'Gallery'}
-            </h3>
+            
             <div className="grid grid-cols-2 gap-3">
               {project.images.map((img, idx) => (
                 <img 
