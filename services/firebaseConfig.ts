@@ -21,13 +21,13 @@ const getEnv = (key: string) => {
 
 // Demo/fallback config (used only if no env vars provided)
 const demoConfig = {
-  apiKey: "AIzaSyDrzfiKBwMr3S5wwceFiFawqEmI9CH-gJQ",
-  authDomain: "card-app-bd7fd.firebaseapp.com",
-  projectId: "card-app-bd7fd",
-  storageBucket: "card-app-bd7fd.firebasestorage.app",
-  messagingSenderId: "346240532602",
-  appId: "1:346240532602:web:0e048c6c3b6080e7babbc3",
-  measurementId: "G-MYVBKSM69L",
+  apiKey: "AIzaSyAeGOG474WdFmZtTbsdtBnRqMCCaYId-u0",
+  authDomain: "card-629c7.firebaseapp.com",
+  projectId: "card-629c7",
+  storageBucket: "card-629c7.firebasestorage.app",
+  messagingSenderId: "584727584722",
+  appId: "1:584727584722:web:1250b9dd13c7125012f20b",
+  measurementId: "G-0M4Z9DBPCV"
 };
 
 // Build config from environment variables when available.
