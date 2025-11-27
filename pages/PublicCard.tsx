@@ -248,9 +248,6 @@ const PublicCard: React.FC = () => {
               )}
 
 
-
-
-
               {/* Company Info */}
               <div className="bg-gray-900 text-gray-300 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
