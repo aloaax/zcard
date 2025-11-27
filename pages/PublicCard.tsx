@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Phone, Mail, Share2, Download, MapPin, Briefcase, Globe, Star, ChevronDown, CheckCircle, Languages, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Share2, Download, MapPin, Globe, ChevronDown, Linkedin, Twitter, Instagram } from 'lucide-react';
 import { cardService } from '../services/cardService';
 import { BusinessCardData, Project, Service } from '../types';
 import { DEFAULT_CARD } from '../utils/defaultData';
@@ -8,6 +8,15 @@ import { downloadVCard } from '../utils/vcardGenerator';
 import WhatsAppModal from '../components/WhatsAppModal';
 import ProjectDetailModal from '../components/ProjectDetailModal';
 import ServiceDetailModal from '../components/ServiceDetailModal';
+
+// Import icons as images
+import callIcon from '../assets/icons/call.png';
+import whatsappIcon from '../assets/icons/whatsapp.png';
+import emailIcon from '../assets/icons/email.png';
+import saveIcon from '../assets/icons/save.png';
+import shareIcon from '../assets/icons/share.png';
+import briefcaseIcon from '../assets/icons/briefcase.png';
+import checkIcon from '../assets/icons/check.png';
 
 // Translations for static UI elements
 const TRANSLATIONS = {
@@ -19,8 +28,6 @@ const TRANSLATIONS = {
     share: 'مشاركة',
     infoTab: 'المعلومات',
     projectsTab: 'المشاريع',
-    aboutMe: 'نبذة عني',
-    myServices: 'خدماتي',
     companyInfo: 'بيانات الشركة',
     poweredBy: 'Powered by Awj Tech',
     adminPanel: '[ لوحة التحكم ]',
@@ -39,8 +46,6 @@ const TRANSLATIONS = {
     share: 'Share',
     infoTab: 'Info',
     projectsTab: 'Projects',
-    aboutMe: 'About Me',
-    myServices: 'My Services',
     companyInfo: 'Company Info',
     poweredBy: 'Powered by Awj Tech',
     adminPanel: '[ Admin Panel ]',
@@ -62,7 +67,7 @@ const PublicCard: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [lang, setLang] = useState<'ar' | 'en'>('ar');
-  
+
   const t = TRANSLATIONS[lang];
   const isRTL = lang === 'ar';
 
@@ -118,25 +123,24 @@ const PublicCard: React.FC = () => {
   }
 
   const hasProjects = data.projects && data.projects.length > 0;
-  const hasServices = data.services && data.services.length > 0;
 
   return (
     <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 pb-10 font-sans ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-md mx-auto bg-white min-h-screen sm:min-h-0 sm:my-8 sm:rounded-[2.5rem] sm:shadow-2xl overflow-hidden relative">
-        
+
         {/* Language Toggle */}
-        <button 
+        <button
           onClick={toggleLanguage}
           className="absolute top-4 left-4 z-40 bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold hover:bg-white/30 transition-all shadow-sm"
         >
-          <Languages size={14} />
+          <span className="w-4 h-4 flex items-center justify-center">🌐</span>
           {lang === 'ar' ? 'English' : 'عربي'}
         </button>
 
         {/* Top Header Background */}
         <div className="h-48 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 relative">
           <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-          
+
           {/* Company Logo Overlay */}
           <div className={`absolute top-6 ${isRTL ? 'right-6' : 'left-6'}`}>
             {data.companyLogoUrl && (
@@ -153,15 +157,15 @@ const PublicCard: React.FC = () => {
         <div className="px-6 relative -mt-20 text-center">
           <div className="relative inline-block">
             <div className="w-40 h-40 rounded-full p-1.5 bg-white shadow-xl mx-auto">
-              <img 
-                src={data.profileImageUrl} 
-                alt={data.fullName} 
+              <img
+                src={data.profileImageUrl}
+                alt={data.fullName}
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
             <div className={`absolute bottom-4 ${isRTL ? 'right-2' : 'left-2'} bg-green-500 w-6 h-6 rounded-full border-4 border-white`}></div>
           </div>
-          
+
           <div className="mt-4 space-y-1">
             <h1 className="text-3xl font-bold text-gray-900">{getContent(data.fullName, data.fullNameEn)}</h1>
             <p className="text-blue-600 font-medium text-lg">{getContent(data.title, data.titleEn)}</p>
@@ -171,33 +175,28 @@ const PublicCard: React.FC = () => {
 
         {/* Action Buttons Grid */}
         <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
-          <ActionButton 
-            icon={<Phone size={20} />} 
-            label={t.call} 
+          <ActionButton
+            icon={<img src={callIcon} alt="call" className="w-6 h-6" />}
             onClick={() => window.open(`tel:${data.contact.personalPhone}`)}
             color="bg-gray-100 text-gray-700 hover:bg-gray-200"
           />
-          <ActionButton 
-            icon={<span className="font-bold text-xl">WA</span>} 
-            label={t.whatsapp} 
+          <ActionButton
+            icon={<img src={whatsappIcon} alt="whatsapp" className="w-6 h-6" />}
             onClick={() => setShowWhatsAppModal(true)}
             color="bg-green-50 text-green-600 hover:bg-green-100"
           />
-          <ActionButton 
-            icon={<Mail size={20} />} 
-            label={t.email} 
+          <ActionButton
+            icon={<img src={emailIcon} alt="email" className="w-6 h-6" />}
             onClick={() => window.open(`mailto:${data.contact.email}`)}
             color="bg-red-50 text-red-600 hover:bg-red-100"
           />
-          <ActionButton 
-            icon={<Download size={20} />} 
-            label={t.save} 
+          <ActionButton
+            icon={<img src={saveIcon} alt="save" className="w-6 h-6" />}
             onClick={() => downloadVCard(data)}
             color="bg-blue-50 text-blue-600 hover:bg-blue-100"
           />
-          <ActionButton 
-            icon={<Share2 size={20} />} 
-            label={t.share} 
+          <ActionButton
+            icon={<img src={shareIcon} alt="share" className="w-6 h-6" />}
             onClick={handleShare}
             color="bg-purple-50 text-purple-600 hover:bg-purple-100"
           />
@@ -206,14 +205,14 @@ const PublicCard: React.FC = () => {
         {/* Navigation Tabs - Only show if there are projects */}
         {hasProjects && (
           <div className="flex border-b border-gray-100 mb-6 sticky top-0 bg-white/95 backdrop-blur z-30">
-            <button 
+            <button
               className={`flex-1 py-4 font-bold text-center transition-colors relative ${activeTab === 'info' ? 'text-blue-800' : 'text-gray-400'}`}
               onClick={() => setActiveTab('info')}
             >
               {t.infoTab}
               {activeTab === 'info' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-800 rounded-t-full mx-8"></div>}
             </button>
-            <button 
+            <button
               className={`flex-1 py-4 font-bold text-center transition-colors relative ${activeTab === 'projects' ? 'text-blue-800' : 'text-gray-400'}`}
               onClick={() => setActiveTab('projects')}
             >
@@ -227,16 +226,16 @@ const PublicCard: React.FC = () => {
         <div className="px-6 pb-20 min-h-[300px]">
           {activeTab === 'info' ? (
             <div className="space-y-6 animate-fadeIn">
-              
+
               {/* Projects CTA - Only if has projects */}
               {hasProjects && (
-                <button 
+                <button
                   onClick={() => setActiveTab('projects')}
                   className="w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white p-5 rounded-2xl shadow-lg shadow-blue-200 transform transition hover:scale-[1.02] flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
                     <div className="bg-white/20 p-2 rounded-full">
-                      <Star fill="white" className="text-transparent" size={20} />
+                      <img src={shareIcon} alt="explore" className="w-5 h-5 invert" />
                     </div>
                     <div className={isRTL ? "text-right" : "text-left"}>
                       <div className="font-bold text-lg">{t.exploreProjects}</div>
@@ -248,13 +247,14 @@ const PublicCard: React.FC = () => {
                   </div>
                 </button>
               )}
+
               {/* Company Info */}
               <div className="bg-gray-900 text-gray-300 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
                 <h3 className="text-white font-bold mb-4">{t.companyInfo}</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-3">
-                    <Phone size={16} />
+                    <img src={callIcon} alt="phone" className="w-4 h-4 invert" />
                     <span dir="ltr">{data.contact.companyPhone}</span>
                   </div>
                   <div className="flex items-center gap-3">
@@ -267,15 +267,15 @@ const PublicCard: React.FC = () => {
                   </a>
                 </div>
 
-                {/* Social Media Links - Linked to Admin Dashboard */}
+                {/* Social Media Links */}
                 {(data.social.linkedin || data.social.twitter || data.social.instagram) && (
                   <div className="mt-6 pt-6 border-t border-gray-800">
                     <div className="flex justify-center gap-4">
                       {data.social.linkedin && (
-                        <a 
-                          href={data.social.linkedin} 
-                          target="_blank" 
-                          rel="noreferrer" 
+                        <a
+                          href={data.social.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
                           className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-[#0077b5] hover:text-white transition-all transform hover:-translate-y-1"
                           aria-label="LinkedIn"
                         >
@@ -283,10 +283,10 @@ const PublicCard: React.FC = () => {
                         </a>
                       )}
                       {data.social.twitter && (
-                        <a 
-                          href={data.social.twitter} 
-                          target="_blank" 
-                          rel="noreferrer" 
+                        <a
+                          href={data.social.twitter}
+                          target="_blank"
+                          rel="noreferrer"
                           className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-black hover:text-white transition-all transform hover:-translate-y-1"
                           aria-label="Twitter"
                         >
@@ -294,10 +294,10 @@ const PublicCard: React.FC = () => {
                         </a>
                       )}
                       {data.social.instagram && (
-                        <a 
-                          href={data.social.instagram} 
-                          target="_blank" 
-                          rel="noreferrer" 
+                        <a
+                          href={data.social.instagram}
+                          target="_blank"
+                          rel="noreferrer"
                           className="bg-gray-800 p-3 rounded-full text-gray-400 hover:bg-gradient-to-tr from-[#fd5949] to-[#d6249f] hover:text-white transition-all transform hover:-translate-y-1"
                           aria-label="Instagram"
                         >
@@ -315,15 +315,15 @@ const PublicCard: React.FC = () => {
               <h2 className="text-2xl font-bold text-gray-800 mb-6">{t.projectsGallery}</h2>
               <div className="grid grid-cols-1 gap-6">
                 {data.projects.map((project) => (
-                  <div 
+                  <div
                     key={project.id}
                     onClick={() => setSelectedProject(project)}
                     className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 cursor-pointer group hover:shadow-xl transition-all"
                   >
                     <div className="h-48 overflow-hidden relative">
-                      <img 
-                        src={project.thumbnailUrl} 
-                        alt={project.title} 
+                      <img
+                        src={project.thumbnailUrl}
+                        alt={project.title}
                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -350,20 +350,20 @@ const PublicCard: React.FC = () => {
 
       </div>
 
-      <WhatsAppModal 
-        isOpen={showWhatsAppModal} 
+      <WhatsAppModal
+        isOpen={showWhatsAppModal}
         onClose={() => setShowWhatsAppModal(false)}
         personalNumber={data.contact.personalPhone}
         workNumber={data.contact.workPhone}
       />
 
-      <ProjectDetailModal 
+      <ProjectDetailModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
         lang={lang}
       />
 
-      <ServiceDetailModal 
+      <ServiceDetailModal
         service={selectedService}
         onClose={() => setSelectedService(null)}
         lang={lang}
@@ -373,15 +373,14 @@ const PublicCard: React.FC = () => {
   );
 };
 
-const ActionButton: React.FC<{icon: React.ReactNode, label: string, onClick: () => void, color: string}> = ({ icon, label, onClick, color }) => (
-  <button 
+const ActionButton: React.FC<{icon: React.ReactNode, onClick: () => void, color: string}> = ({ icon, onClick, color }) => (
+  <button
     onClick={onClick}
     className="flex flex-col items-center gap-2 group"
   >
     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm ${color} group-hover:shadow-md group-hover:-translate-y-1`}>
       {icon}
     </div>
-    <span className="text-[10px] font-bold text-gray-600">{label}</span>
   </button>
 );
 
