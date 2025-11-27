@@ -123,18 +123,7 @@ const PublicCard: React.FC = () => {
         <div className="h-48 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 relative">
           <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-          {/* Company Logo Overlay */}
-          <div className={`absolute top-6 ${isRTL ? 'right-6' : 'left-6'}`}>
-            {data.companyLogoUrl && (
-              <div className="bg-white/10 backdrop-blur-sm p-2 rounded-lg border border-white/20">
-                <span className="text-white font-bold tracking-wider">
-                  {getContent(data.companyName, data.companyNameEn).toUpperCase()}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-
+         
         {/* Profile Section */}
         <div className="px-6 relative -mt-20 text-center">
           <div className="relative inline-block">
