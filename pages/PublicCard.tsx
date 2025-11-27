@@ -199,35 +199,7 @@ const PublicCard: React.FC = () => {
                 </button>
               )}
 
-              <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                <h3 className="text-gray-900 font-bold mb-3 flex items-center gap-2">
-                  <Briefcase size={18} className="text-blue-600"/>
-                  {t.aboutMe}
-                </h3>
-                <p className="text-gray-600 text-sm">{getContent(data.about, data.aboutEn)}</p>
-              </div>
-
-              {hasServices && (
-                <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                  <h3 className="text-gray-900 font-bold mb-4 flex items-center gap-2">
-                    <CheckCircle size={18} className="text-blue-600"/>
-                    {t.myServices}
-                  </h3>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    {data.services.map((service) => (
-                      <div 
-                        key={service.id} 
-                        onClick={() => setSelectedService(service)}
-                        className="bg-gray-50 rounded-xl p-3 text-center text-sm text-gray-700 hover:bg-blue-50 cursor-pointer"
-                      >
-                        {service.icon && <img src={service.icon} className="w-8 h-8 mx-auto mb-1" />}
-                        {getContent(service.name, service.nameEn)}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+           
 
               <div className="bg-gray-900 text-gray-300 rounded-2xl p-6">
                 <h3 className="text-white font-bold mb-4">{t.companyInfo}</h3>
