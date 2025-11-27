@@ -119,11 +119,15 @@ const PublicCard: React.FC = () => {
           {lang === 'ar' ? 'English' : 'عربي'}
         </button>
 
-        {/* Top Header Background */}
-        <div className="h-48 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 relative">
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-
-
+     {/* Top Header Background */}
+        <div className="h-48 bg-black relative overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src="https://image.prntscr.com/image/jh-FCDq1RLyXvZAk9tcCMw.png"
+              alt="Header Background"
+              className="h-full w-full object-cover opacity-80"
+            />
+          </div>
         </div>
 
         {/* Profile Section */}
