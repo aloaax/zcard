@@ -248,40 +248,6 @@ const PublicCard: React.FC = () => {
                   </div>
                 </button>
               )}
-
-              {/* About Section */}
-              <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                <h3 className="text-gray-900 font-bold mb-3 flex items-center gap-2">
-                  <Briefcase size={18} className="text-blue-600"/>
-                  {t.aboutMe}
-                </h3>
-                <p className="text-gray-600 leading-relaxed text-sm">
-                  {getContent(data.about, data.aboutEn)}
-                </p>
-              </div>
-
-              {/* Services Section - Hide if empty */}
-              {hasServices && (
-                <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                  <h3 className="text-gray-900 font-bold mb-4 flex items-center gap-2">
-                    <CheckCircle size={18} className="text-blue-600"/>
-                    {t.myServices}
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {data.services.map((service) => (
-                      <div 
-                        key={service.id} 
-                        onClick={() => setSelectedService(service)}
-                        className="bg-gray-50 rounded-xl p-3 text-center text-sm font-medium text-gray-700 flex flex-col items-center gap-2 hover:bg-blue-50 cursor-pointer transition-all hover:shadow-md"
-                      >
-                        {service.icon && <img src={service.icon} alt="" className="w-8 h-8 object-contain" />}
-                        <span>{getContent(service.name, service.nameEn)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Company Info */}
               <div className="bg-gray-900 text-gray-300 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
