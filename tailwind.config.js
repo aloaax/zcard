@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Tajawal', 'sans-serif'],
+        sans: ['Tajawal', 'sans-serif !important'],
       },
     },
   },
