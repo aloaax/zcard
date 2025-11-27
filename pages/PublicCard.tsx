@@ -123,7 +123,7 @@ const PublicCard: React.FC = () => {
         <div className="h-48 bg-black relative overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center">
             <img
-              src="https://image.prntscr.com/image/jh-FCDq1RLyXvZAk9tcCMw.png"
+              src="https://image.prntscr.com/image/VNsLO2zMSpWOR5O1t5X46w.png"
               alt="Header Background"
               className="h-full w-full object-cover opacity-80"
             />
