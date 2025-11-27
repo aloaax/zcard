@@ -123,157 +123,159 @@ const PublicCard: React.FC = () => {
         <div className="h-48 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 relative">
           <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-         
+
+        </div>
+
         {/* Profile Section */}
-        <div className="px-6 relative -mt-20 text-center">
-          <div className="relative inline-block">
-            <div className="w-40 h-40 rounded-full p-1.5 bg-white shadow-xl mx-auto">
-              <img
-                src={data.profileImageUrl}
-                alt={data.fullName}
-                className="w-full h-full rounded-full object-cover"
-              />
+          <div className="px-6 relative -mt-20 text-center">
+            <div className="relative inline-block">
+              <div className="w-40 h-40 rounded-full p-1.5 bg-white shadow-xl mx-auto">
+                <img
+                  src={data.profileImageUrl}
+                  alt={data.fullName}
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </div>
+              <div className={`absolute bottom-4 ${isRTL ? 'right-2' : 'left-2'} bg-green-500 w-6 h-6 rounded-full border-4 border-white`}></div>
             </div>
-            <div className={`absolute bottom-4 ${isRTL ? 'right-2' : 'left-2'} bg-green-500 w-6 h-6 rounded-full border-4 border-white`}></div>
+
+            <div className="mt-4 space-y-1">
+              <h1 className="text-3xl font-bold text-gray-900">{getContent(data.fullName, data.fullNameEn)}</h1>
+              <p className="text-blue-600 font-medium text-lg">{getContent(data.title, data.titleEn)}</p>
+              <p className="text-gray-500 text-sm font-light px-8">{getContent(data.tagline, data.taglineEn)}</p>
+            </div>
           </div>
 
-          <div className="mt-4 space-y-1">
-            <h1 className="text-3xl font-bold text-gray-900">{getContent(data.fullName, data.fullNameEn)}</h1>
-            <p className="text-blue-600 font-medium text-lg">{getContent(data.title, data.titleEn)}</p>
-            <p className="text-gray-500 text-sm font-light px-8">{getContent(data.tagline, data.taglineEn)}</p>
+          {/* Action Buttons Grid */}
+          <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
+            <ActionButton
+              icon={<img src="/images/call.png" alt="Call" className="w-full h-full object-contain" />}
+              label={t.call}
+              onClick={() => window.open(`tel:${data.contact.personalPhone}`)}
+              color="bg-transparent"
+            />
+            <ActionButton
+              icon={<img src="/images/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />}
+              label={t.whatsapp}
+              onClick={() => setShowWhatsAppModal(true)}
+              color="bg-transparent"
+            />
+            <ActionButton
+              icon={<img src="/images/email.png" alt="Email" className="w-full h-full object-contain" />}
+              label={t.email}
+              onClick={() => window.open(`mailto:${data.contact.email}`)}
+              color="bg-transparent"
+            />
+            <ActionButton
+              icon={<img src="/images/save.png" alt="Save" className="w-full h-full object-contain" />}
+              label={t.save}
+              onClick={() => downloadVCard(data)}
+              color="bg-transparent"
+            />
+            <ActionButton
+              icon={<img src="/images/share.png" alt="Share" className="w-full h-full object-contain" />}
+              label={t.share}
+              onClick={handleShare}
+              color="bg-transparent"
+            />
           </div>
-        </div>
-
-        {/* Action Buttons Grid */}
-        <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
-          <ActionButton
-            icon={<img src="/images/call.png" alt="Call" className="w-full h-full object-contain" />}
-            label={t.call}
-            onClick={() => window.open(`tel:${data.contact.personalPhone}`)}
-            color="bg-transparent"
-          />
-          <ActionButton
-            icon={<img src="/images/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />}
-            label={t.whatsapp}
-            onClick={() => setShowWhatsAppModal(true)}
-            color="bg-transparent"
-          />
-          <ActionButton
-            icon={<img src="/images/email.png" alt="Email" className="w-full h-full object-contain" />}
-            label={t.email}
-            onClick={() => window.open(`mailto:${data.contact.email}`)}
-            color="bg-transparent"
-          />
-          <ActionButton
-            icon={<img src="/images/save.png" alt="Save" className="w-full h-full object-contain" />}
-            label={t.save}
-            onClick={() => downloadVCard(data)}
-            color="bg-transparent"
-          />
-          <ActionButton
-            icon={<img src="/images/share.png" alt="Share" className="w-full h-full object-contain" />}
-            label={t.share}
-            onClick={handleShare}
-            color="bg-transparent"
-          />
-        </div>
 
 
 
-        {/* Content Area */}
-        <div className="px-6 pb-20 min-h-[300px]">
-          <div className="space-y-6 animate-fadeIn">
+          {/* Content Area */}
+          <div className="px-6 pb-20 min-h-[300px]">
+            <div className="space-y-6 animate-fadeIn">
 
-            {/* Projects CTA - Only if has projects */}
-            {hasProjects && (
-              <div className="space-y-4">
-                <button
-                  onClick={() => setShowProjects(!showProjects)}
-                  className="w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white p-5 rounded-2xl shadow-lg shadow-blue-200 transform transition hover:scale-[1.02] flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="bg-white/20 p-2 rounded-full">
-                      <Star fill="white" className="text-transparent" size={20} />
+              {/* Projects CTA - Only if has projects */}
+              {hasProjects && (
+                <div className="space-y-4">
+                  <button
+                    onClick={() => setShowProjects(!showProjects)}
+                    className="w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white p-5 rounded-2xl shadow-lg shadow-blue-200 transform transition hover:scale-[1.02] flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="bg-white/20 p-2 rounded-full">
+                        <Star fill="white" className="text-transparent" size={20} />
+                      </div>
+                      <div className={isRTL ? "text-right" : "text-left"}>
+                        <div className="font-bold text-lg">{t.exploreProjects}</div>
+                      </div>
                     </div>
-                    <div className={isRTL ? "text-right" : "text-left"}>
-                      <div className="font-bold text-lg">{t.exploreProjects}</div>
+                    <div className="bg-white text-blue-900 rounded-full p-1">
+                      <ChevronDown className={`transform transition-transform duration-300 ${showProjects ? 'rotate-180' : ''}`} size={20} />
                     </div>
-                  </div>
-                  <div className="bg-white text-blue-900 rounded-full p-1">
-                    <ChevronDown className={`transform transition-transform duration-300 ${showProjects ? 'rotate-180' : ''}`} size={20} />
-                  </div>
-                </button>
+                  </button>
 
-                {/* Projects List (Accordion Content) */}
-                {showProjects && (
-                  <div className="grid grid-cols-1 gap-6 animate-fadeIn">
-                    {data.projects.map((project) => (
-                      <div
-                        key={project.id}
-                        onClick={() => setSelectedProject(project)}
-                        className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 cursor-pointer group hover:shadow-xl transition-all"
-                      >
-                        <div className="h-48 overflow-hidden relative">
-                          <img
-                            src={project.thumbnailUrl}
-                            alt={project.title}
-                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                            <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-medium border border-white/30 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
-                              {t.viewDetails}
-                            </span>
+                  {/* Projects List (Accordion Content) */}
+                  {showProjects && (
+                    <div className="grid grid-cols-1 gap-6 animate-fadeIn">
+                      {data.projects.map((project) => (
+                        <div
+                          key={project.id}
+                          onClick={() => setSelectedProject(project)}
+                          className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 cursor-pointer group hover:shadow-xl transition-all"
+                        >
+                          <div className="h-48 overflow-hidden relative">
+                            <img
+                              src={project.thumbnailUrl}
+                              alt={project.title}
+                              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                              <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-medium border border-white/30 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+                                {t.viewDetails}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <h3 className="font-bold text-gray-900 text-lg mb-1">{getContent(project.title, project.titleEn)}</h3>
+                            <p className="text-gray-500 text-sm line-clamp-2">{getContent(project.description, project.descriptionEn)}</p>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <h3 className="font-bold text-gray-900 text-lg mb-1">{getContent(project.title, project.titleEn)}</h3>
-                          <p className="text-gray-500 text-sm line-clamp-2">{getContent(project.description, project.descriptionEn)}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* Footer Branding */}
+          <div className="text-center py-6 text-gray-400 text-xs bg-gray-50 border-t border-gray-100">
+            <p>{t.poweredBy}</p>
+          </div>
+
         </div>
 
-        {/* Footer Branding */}
-        <div className="text-center py-6 text-gray-400 text-xs bg-gray-50 border-t border-gray-100">
-          <p>{t.poweredBy}</p>
-        </div>
+        <WhatsAppModal
+          isOpen={showWhatsAppModal}
+          onClose={() => setShowWhatsAppModal(false)}
+          personalNumber={data.contact.personalPhone}
+          workNumber={data.contact.workPhone}
+        />
+
+        <ProjectDetailModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+          lang={lang}
+        />
+
+
 
       </div>
-
-      <WhatsAppModal
-        isOpen={showWhatsAppModal}
-        onClose={() => setShowWhatsAppModal(false)}
-        personalNumber={data.contact.personalPhone}
-        workNumber={data.contact.workPhone}
-      />
-
-      <ProjectDetailModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        lang={lang}
-      />
-
-
-
-    </div>
-  );
+      );
 };
 
-const ActionButton: React.FC<{ icon: React.ReactNode, label: string, onClick: () => void, color: string }> = ({ icon, label, onClick, color }) => (
-  <button
-    onClick={onClick}
-    className="flex flex-col items-center gap-2 group"
-  >
-    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm ${color} group-hover:shadow-md group-hover:-translate-y-1`}>
-      {icon}
-    </div>
-    <span className="text-[10px] font-bold text-gray-600">{label}</span>
-  </button>
-);
+      const ActionButton: React.FC<{ icon: React.ReactNode, label: string, onClick: () => void, color: string }> = ({icon, label, onClick, color}) => (
+      <button
+        onClick={onClick}
+        className="flex flex-col items-center gap-2 group"
+      >
+        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm ${color} group-hover:shadow-md group-hover:-translate-y-1`}>
+          {icon}
+        </div>
+        <span className="text-[10px] font-bold text-gray-600">{label}</span>
+      </button>
+      );
 
-export default PublicCard;
+      export default PublicCard;
