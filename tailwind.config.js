@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Tajawal', 'sans-serif !important'],
+        sans: ['Readex Pro', 'sans-serif !important'],
       },
     },
   },
