@@ -162,21 +162,25 @@ const PublicCard: React.FC = () => {
           />
           <ActionButton
             icon={<img src="/images/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />}
+            label={t.whatsapp}
             onClick={() => setShowWhatsAppModal(true)}
             color="bg-transparent"
           />
           <ActionButton
             icon={<img src="/images/email.png" alt="Email" className="w-full h-full object-contain" />}
+            label={t.email}
             onClick={() => window.open(`mailto:${data.contact.email}`)}
             color="bg-transparent"
           />
           <ActionButton
             icon={<img src="/images/save.png" alt="Save" className="w-full h-full object-contain" />}
+            label={t.save}
             onClick={() => downloadVCard(data)}
             color="bg-transparent"
           />
           <ActionButton
             icon={<img src="/images/share.png" alt="Share" className="w-full h-full object-contain" />}
+            label={t.share}
             onClick={handleShare}
             color="bg-transparent"
           />
