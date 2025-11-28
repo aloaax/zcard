@@ -181,8 +181,6 @@ const PublicCard: React.FC = () => {
           />
         </div>
 
-
-<br><br/>
         {/* Content Area */}
         <div className="px-6 pb-20 min-h-[300px]">
           <div className="space-y-6 animate-fadeIn">
@@ -274,7 +272,7 @@ const PublicCard: React.FC = () => {
   );
 };
 
-const ActionButton: React.FC<{ icon: React.ReactNode, label: string, onClick: () => void, color: string }> = ({ icon, label, onClick, color }) => (
+const ActionButton: React.FC<{ icon: React.ReactNode, onClick: () => void, color: string }> = ({ icon, onClick, color }) => (
   <button
     onClick={onClick}
     className="flex flex-col items-center gap-2 group"
@@ -282,7 +280,6 @@ const ActionButton: React.FC<{ icon: React.ReactNode, label: string, onClick: ()
     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm ${color} group-hover:shadow-md group-hover:-translate-y-1`}>
       {icon}
     </div>
-    <span className="text-[10px] font-bold text-gray-600">{label}</span>
   </button>
 );
 
