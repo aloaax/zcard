@@ -166,7 +166,6 @@ const PublicCard: React.FC = () => {
           />
           <ActionButton
             icon={<img src="/images/email.png" alt="Email" className="w-full h-full object-contain" />}
-            label={t.email}
             onClick={() => window.open(`mailto:${data.contact.email}`)}
             color="bg-transparent"
           />
