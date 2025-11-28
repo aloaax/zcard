@@ -125,7 +125,7 @@ const PublicCard: React.FC = () => {
             <img
               src="https://planpos.com/wp-content/uploads/2025/11/fff.png"
               alt="Header Background"
-              className="h-full w-full object-cover opacity-80"
+              className="h-full w-full object-contain opacity-100"
             />
           </div>
         </div>
