@@ -18,9 +18,9 @@ const TRANSLATIONS = {
     save: 'حفظ',
     share: 'مشاركة',
     poweredBy: 'Powered by Awj Tech',
-    projectsGallery: 'امتيازات سيفتى زون',
+    projectsGallery: 'Saftey Zone امتيازات  ',
     viewDetails: 'عرض التفاصيل',
-    exploreProjects: 'تعرف على سيفتى زون',
+    exploreProjects: 'تعرف على Saftey Zone',
     shareSuccess: 'تم نسخ الرابط!',
     loading: 'جاري التحميل...',
   },
@@ -154,7 +154,6 @@ const PublicCard: React.FC = () => {
           <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
             <ActionButton
               icon={<img src="/images/call.png" alt="Call" className="w-full h-full object-contain" />}
-              label={t.call}
               onClick={() => window.open(`tel:${data.contact.personalPhone}`)}
               color="bg-transparent"
             />
