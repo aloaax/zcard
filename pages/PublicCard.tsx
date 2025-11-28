@@ -113,7 +113,7 @@ const PublicCard: React.FC = () => {
         {/* Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="absolute top-4 left-4 z-40 bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold hover:bg-white/30 transition-all shadow-sm"
+          className="absolute top-4 right-4 z-40 bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold hover:bg-white/30 transition-all shadow-sm"
         >
           <Languages size={14} />
           {lang === 'ar' ? 'English' : 'عربي'}
