@@ -146,8 +146,8 @@ const PublicCard: React.FC = () => {
           </div>
 
           <div className="mt-4 space-y-1">
-            <h1 className="text-3xl font-bold text-gray-900">{getContent(data.fullName, data.fullNameEn)}</h1>
-            <p className="text-blue-600 font-medium text-lg">{getContent(data.title, data.titleEn)}</p>
+            <h1 className="text-2xl font-bold text-gray-900">{getContent(data.fullName, data.fullNameEn)}</h1>
+            <p className="text-blue-500 font-medium text-lg">{getContent(data.title, data.titleEn)}</p>
             <p className="text-gray-500 text-sm font-light px-8">{getContent(data.tagline, data.taglineEn)}</p>
           </div>
         </div>
@@ -183,7 +183,7 @@ const PublicCard: React.FC = () => {
         </div>
 
 
-
+<br><br/>
         {/* Content Area */}
         <div className="px-6 pb-20 min-h-[300px]">
           <div className="space-y-6 animate-fadeIn">
