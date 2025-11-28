@@ -156,13 +156,11 @@ const PublicCard: React.FC = () => {
         <div className="grid grid-cols-5 gap-3 px-6 mt-8 mb-6">
           <ActionButton
             icon={<img src="/images/call.png" alt="Call" className="w-full h-full object-contain" />}
-            label={t.call}
             onClick={() => setShowCallModal(true)}
             color="bg-transparent"
           />
           <ActionButton
             icon={<img src="/images/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />}
-            label={t.whatsapp}
             onClick={() => setShowWhatsAppModal(true)}
             color="bg-transparent"
           />
@@ -174,13 +172,11 @@ const PublicCard: React.FC = () => {
           />
           <ActionButton
             icon={<img src="/images/save.png" alt="Save" className="w-full h-full object-contain" />}
-            label={t.save}
             onClick={() => downloadVCard(data)}
             color="bg-transparent"
           />
           <ActionButton
             icon={<img src="/images/share.png" alt="Share" className="w-full h-full object-contain" />}
-            label={t.share}
             onClick={handleShare}
             color="bg-transparent"
           />
